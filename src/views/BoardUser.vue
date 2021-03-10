@@ -68,18 +68,16 @@ export default {
       console.log(data)
       axios({
         method: 'POST',
-        url: 'http://10.1.0.180:8080/api/ticked/create/',
+        url: 'http://localhost:8080/api/ticket/create/',
         data: data
       }).then((response) => {
         console.log(response.data);
       })
-
-      let result = response.json();
-      console.log(result)
     }
   },
   mounted() {
-      UserService.getTicket()
+    let username = JSON.parse(localStorage.getItem('user'))
+      UserService.getTicket(username.username)
           .then(
               response => {
                 this.tickets = response.data;

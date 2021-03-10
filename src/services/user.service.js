@@ -8,8 +8,8 @@ class UserService {
   getPublicContent() {
     return axios.get(API_URL + 'all');
   }
-  getTicket() {
-    return axios.get(API_ticket, { headers: authHeader() });
+  getTicket(login) {
+    return axios.get(API_ticket, { headers: authHeader(login) });
   }
   getUserBoard() {
     return axios.get(API_URL + 'user', { headers: authHeader() });
@@ -20,7 +20,7 @@ class UserService {
   }
 
   getAdminBoard() {
-    return axios.get(API_URL + 'admin', { headers: authHeader() });
+    return axios.get(API_URL + 'admin', { headers: authHeader(login) });
   }
 }
 
