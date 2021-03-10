@@ -1,36 +1,16 @@
 <template>
   <div class="container">
-    <header class="jumbotron">
-      <div style="width: 600px" v-for="(f, index) in tickeds">
-        <hr>
-        <p>Тема:</p>
-        <h3>{{f.title}}</h3>
-        <br>
-        <hr>
-        <p>номер заявки:</p>
-        <h3>{{f.id}}</h3>
-        <br>
-        <hr>
-        <p>ФИО пользователя:</p>
-        {{f.firstName}}
-        {{f.secondName}}
-        {{f.lastName}}
-        <br>
-        <hr>
-        <p>Имя пользователя:</p>
-        {{f.login}}
-        <br>
-        <hr>
-        <p>Адресс эллектронной почты:</p>
-        {{f.email}}
-        <br>
-        <hr>
-        <p>Причина:</p>
-        <p>{{f.reason}}</p>
-        <hr>
-        <br>
-        <hr>
-        <br>
+    <header class="bg-white jumbotron">
+      <div class="mb-5" v-for="(f, index) in tickets">
+        <ul class="list-group">
+          <li style="background-color: #6FABE2;" class="list-group-item text-white text-sm-center"><h4>{{f.title}}</h4></li>
+          <li class="list-group-item"><strong>Описание: </strong>{{f.reason}}</li>
+          <li class="list-group-item"><strong>id: </strong>{{f.id}}</li>
+          <li class="list-group-item"><strong>ФИО: </strong>{{f.secondName}} {{f.firstName}} {{f.lastName}}</li>
+          <li class="list-group-item"><strong>Email: </strong>{{f.email}}</li>
+          <li class="list-group-item"><strong>Username: </strong>{{f.login}}</li>
+          <li class="list-group-item"><strong>status: </strong>{{f.status}}</li>
+        </ul>
         <div v-bind="index">
         </div>
       </div>
@@ -46,24 +26,22 @@ export default {
   data() {
     return {
       content: '',
-      tickeds: ''
+      tickets:''
     };
   },
   mounted() {
-    setTimeout(()=>{
-      UserService.getTicked()
-          .then(
-              response => {
-                this.tickeds = response.data;
-              },
-              error => {
-                this.tickeds =
-                    (error.response && error.response.data && error.response.data.message) ||
-                    error.message ||
-                    error.toString();
-              }
-          );
-    }, 1000)
+    UserService.getTicket()
+        .then(
+            response => {
+              this.tickets = response.data;
+            },
+            error => {
+              this.tickets =
+                  (error.response && error.response.data && error.response.data.message) ||
+                  error.message ||
+                  error.toString();
+            }
+        );
     UserService.getAdminBoard().then(
       response => {
         this.content = response.data;

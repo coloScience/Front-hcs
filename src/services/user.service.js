@@ -1,15 +1,15 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = 'http://10.1.0.180:8080/api/test/';
-const API_ticked= 'http://10.1.0.180:8080/api/ticked/get';
+const API_URL = 'http://localhost:8080/api/test/';
+const API_ticket= 'http://localhost:8080/api/ticket/get';
 
 class UserService {
   getPublicContent() {
     return axios.get(API_URL + 'all');
   }
-  getTicked() {
-    return axios.get(API_ticked, { headers: authHeader() });
+  getTicket() {
+    return axios.get(API_ticket, { headers: authHeader() });
   }
   getUserBoard() {
     return axios.get(API_URL + 'user', { headers: authHeader() });
