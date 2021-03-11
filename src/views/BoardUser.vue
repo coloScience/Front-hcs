@@ -18,18 +18,17 @@
             </button>
           </div>
           <div class="cards">
-            <div class="mb-5" v-for="(f, index) in tickets">
+            <div class="mb-5" v-for="data in tickets">
               <ul class="list-group">
-                <li style="background-color: #6FABE2;" class="list-group-item text-white text-sm-center"><h4>{{f.title}}</h4></li>
-                <li class="list-group-item"><strong>Описание: </strong>{{f.reason}}</li>
-                <li class="list-group-item"><strong>id: </strong>{{f.id}}</li>
-                <li class="list-group-item"><strong>ФИО: </strong>{{f.secondName}} {{f.firstName}} {{f.lastName}}</li>
-                <li class="list-group-item"><strong>Email: </strong>{{f.email}}</li>
-                <li class="list-group-item"><strong>Username: </strong>{{f.login}}</li>
-                <li class="list-group-item"><strong>status: </strong>{{f.status}}</li>
+                <li style="background-color: #6FABE2;" class="list-group-item text-white text-sm-center"><h4>{{data.title}}</h4></li>
+                <li class="list-group-item"><strong>Описание: </strong>{{data.reason}}</li>
+                <li class="list-group-item"><strong>id: </strong>{{data.id}}</li>
+                <li class="list-group-item"><strong>ФИО: </strong>{{data.secondName}} {{data.firstName}} {{data.lastName}}</li>
+                <li class="list-group-item"><strong>Email: </strong>{{data.email}}</li>
+                <li class="list-group-item"><strong>Phone: </strong>{{data.phone}}</li>
+                <li class="list-group-item"><strong>Username: </strong>{{data.login}}</li>
+                <li class="list-group-item"><strong>status: </strong>{{data.status}}</li>
               </ul>
-              <div v-bind="index">
-              </div>
             </div>
           </div>
         </main>
@@ -42,19 +41,24 @@ import UserService from '../services/user.service';
 import axios from 'axios';
 
 export default {
-  name: 'Заявки',
+  name: 'Ticket',
   data() {
     return {
+      content:'',
       tickets:'',
-      content: ''
+      email: '',
+      firstName: '',
+      secondName: '',
+      lastName: '',
+      phone: '',
+      title: '',
+      reason: ''
     };
   },
   methods: {
     sends() {
       let username = JSON.parse(localStorage.getItem('user'))
-      console.log(username)
       username = username.username
-      console.log(username)
       let data = {
         login: username,
         email: this.email,
@@ -65,13 +69,12 @@ export default {
         title: this.title,
         reason: this.reason
       }
-      console.log(data)
       axios({
         method: 'POST',
         url: 'http://localhost:8080/api/ticket/create/',
         data: data
       }).then((response) => {
-        console.log(response.data);
+        console.log(response);
       })
     }
   },
