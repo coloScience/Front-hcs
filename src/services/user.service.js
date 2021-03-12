@@ -1,8 +1,9 @@
 import axios from 'axios';
 import authHeader from './auth-header';
+import {localIp} from '../config/host.config'
 
-const API_URL = 'http://localhost:8080/api/test/';
-const API_ticket= 'http://localhost:8080/api/ticket/get';
+const API_URL = localIp + '/api/test/';
+const API_ticket= localIp + '/api/ticket/';
 
 class UserService {
   getPublicContent() {
@@ -11,15 +12,18 @@ class UserService {
   getTicket(login) {
     return axios.get(API_ticket, { headers: authHeader(login) });
   }
+  getUser() {
+    return axios.get(API_ticket, { headers: authHeader() });
+  }
   getUserBoard() {
     return axios.get(API_URL + 'user', { headers: authHeader() });
   }
 
-  getModeratorBoard() {
-    return axios.get(API_URL + 'mod', { headers: authHeader() });
+  getManagerBoard() {
+    return axios.get(API_URL + 'manage', { headers: authHeader() });
   }
 
-  getAdminBoard() {
+  getAdminBoard(login) {
     return axios.get(API_URL + 'admin', { headers: authHeader(login) });
   }
 }

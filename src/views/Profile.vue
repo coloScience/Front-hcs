@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import UserService from '../services/user.service';
 export default {
   name: 'Profile',
   computed: {
@@ -33,6 +34,8 @@ export default {
     }
   },
   mounted() {
+    UserService.getUser()
+      .then()
     if (!this.currentUser) {
       this.$router.push('/login');
     }

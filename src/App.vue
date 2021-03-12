@@ -2,18 +2,18 @@
   <div id="app">
     <nav class="navbar navbar-expand navbar-dark bg-dark">
       <div class="navbar-nav mr-auto">
-        <li class="nav-item">
+        <li v-if="false" class="nav-item">
           <router-link to="/home" class="nav-link">Home
           </router-link>
         </li>
         <li v-if="showAdminBoard" class="nav-item">
-          <router-link to="/admin" class="nav-link">Admin</router-link>
+          <router-link to="/admin" class="nav-link">Администратор</router-link>
         </li>
         <li v-if="showModeratorBoard" class="nav-item">
-          <router-link to="/mod" class="nav-link">Moder</router-link>
+          <router-link to="/manage" class="nav-link">Диспетчер</router-link>
         </li>
         <li class="nav-item">
-          <router-link v-if="currentUser" to="/user" class="nav-link">User</router-link>
+          <router-link v-if="currentUser" to="/user" class="nav-link">Заявки</router-link>
         </li>
       </div>
 
@@ -63,7 +63,7 @@ export default {
     },
     showModeratorBoard() {
       if (this.currentUser && this.currentUser.roles) {
-        return this.currentUser.roles.includes('ROLE_MODERATOR');
+        return this.currentUser.roles.includes('ROLE_MANAGER');
       }
 
       return false;

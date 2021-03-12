@@ -1,6 +1,8 @@
 import axios from 'axios';
+import {localIp} from '../config/host.config'
 
-const API_URL = 'http://localhost:8080/api/auth/';
+const API_URL = localIp + '/api/auth/';
+console.log(localIp)
 
 class AuthService {
   login(user) {
