@@ -142,7 +142,7 @@ export default {
   outline: none;
   border: none;
   border-radius: 10px;
-  width: 200px;
+  width: 410px;
   height: 48px;
   color: #fff;
 }
@@ -168,8 +168,8 @@ export default {
   font-size: 18px;
   padding-top: 10px;
   padding-left: 10px;
-  width: 200px;
-  height: 90px;
+  width: 410px;
+  height: 180px;
   background: #FFFFFF;
   border-radius: 12px;
   border: 1px solid #CDCDCD;
@@ -177,19 +177,5 @@ export default {
   outline: none;
   margin-top: 10px;
   margin-left: 10px;
-}
-.card{
-  margin-bottom: 30px;
-  width: 471px;
-  height: 273px;
-  background: #FFFFFF;
-  border: 1px solid #CDCDCD;
-  box-sizing: border-box;
-  border-radius: 10px;
-}
-.card-body{
-  height: 220px;
-  margin-top: 45px;
-  margin-left: 28px;
 }
 </style>

@@ -98,6 +98,8 @@ export default {
             data => {
               this.message = data.message;
               this.successful = true;
+              localStorage.setItem('user', JSON.stringify(data))
+              location.reload()
             },
             error => {
               this.message =
