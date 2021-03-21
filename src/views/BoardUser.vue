@@ -2,13 +2,16 @@
   <div class="container">
     <header style="background-color: #fff;" class="jumbotron">
       <h3 style="text-align: center">{{content}}</h3>
-        <main class="mt-5">
-          <div class="menu mb-5">
+        <main style="display: flex; flex-wrap: wrap" class="mt-5 col-12">
+          <div class="menu mb-5 col-6">
             <form class="forms" action="">
               <input class="inputs" type="text" v-model="title" placeholder="Тема">
-              <input class="inputs" type="text" v-model="firstName" placeholder="Имя">
               <input class="inputs" type="text" v-model="secondName" placeholder="Фамилия">
+              <input class="inputs" type="text" v-model="firstName" placeholder="Имя">
               <input class="inputs" type="text" v-model="lastName" placeholder="Отчество">
+              <input class="inputs" type="text" v-model="street" placeholder="Улица">
+              <input class="inputs" type="text" v-model="house" placeholder="Дом">
+              <input class="inputs" type="text" v-model="flat" placeholder="Квартира">
               <input class="inputs" type="text" v-model="phone" placeholder="Телефон">
               <input class="inputs" type="email" v-model="email" placeholder="Эл почта">
               <textarea class="textareas" v-model="reason" placeholder="Ваша проблема"></textarea>
@@ -16,20 +19,9 @@
             <button class = 'menu-button' v-on:click="sends()">
               Добавить
             </button>
-          </div>
-          <div class="cards">
-            <div class="mb-5" v-for="data in tickets">
-              <ul class="list-group">
-                <li style="background-color: #6FABE2;" class="list-group-item text-white text-sm-center"><h4>{{data.title}}</h4></li>
-                <li class="list-group-item"><strong>Описание: </strong>{{data.reason}}</li>
-                <li class="list-group-item"><strong>id: </strong>{{data.id}}</li>
-                <li class="list-group-item"><strong>ФИО: </strong>{{data.secondName}} {{data.firstName}} {{data.lastName}}</li>
-                <li class="list-group-item"><strong>Email: </strong>{{data.email}}</li>
-                <li class="list-group-item"><strong>Phone: </strong>{{data.phone}}</li>
-                <li class="list-group-item"><strong>Username: </strong>{{data.login}}</li>
-                <li class="list-group-item"><strong>status: </strong><span class="btn-success btn-sm">{{data.status}}</span></li>
-              </ul>
-            </div>
+          </div >
+          <div class="container-ticket col-6">
+            <ticket v-bind:item="item" v-for="item in tickets"/>
           </div>
         </main>
     </header>
@@ -38,8 +30,7 @@
 
 <script>
 import UserService from '../services/user.service';
-import axios from 'axios';
-import {localIp} from '../config/host.config'
+import ticket from "@/components/ticket";
 
 export default {
   name: 'Ticket',
@@ -47,14 +38,21 @@ export default {
     return {
       content:'',
       tickets:'',
+      status: '',
       email: '',
       firstName: '',
       secondName: '',
       lastName: '',
+      street: '',
+      house: '',
+      flat: '',
       phone: '',
       title: '',
       reason: ''
     };
+  },
+  components:{
+    ticket
   },
   methods: {
     sends() {
@@ -66,55 +64,64 @@ export default {
         firstName: this.firstName,
         secondName: this.secondName,
         lastName: this.lastName,
+        street: this.street,
+        house: this.house,
+        flat: this.flat,
         phone: this.phone,
         title: this.title,
         reason: this.reason
       }
-      console.log(!!this.email)
-      axios({
-        method: 'POST',
-        url: localIp + '/api/ticket/',
-        data: data
-      }).then((response) => {
-        console.log(response);
-      })
+      UserService.getTicket('http://localhost:8080/api/ticket', {login: username}, data).then(
+        response=>{
+           this.tickets = response.data
+        },
+        error => {
+          this.content =
+              (error.response && error.response.data && error.response.data.message) ||
+              error.message ||
+              error.toString();
+        }
+      )
       this.email = ''
       this.firstName = ''
       this.secondName = ''
       this.lastName = ''
+      this.street = ''
+      this.house = ''
+      this.flat = ''
       this.phone = ''
       this.title = ''
       this.reason = ''
       setTimeout(()=>{
-        UserService.getTicket(username)
-            .then(
-                response => {
-                  this.tickets = response.data;
-                },
-                error => {
-                  this.tickets =
-                      (error.response && error.response.data && error.response.data.message) ||
-                      error.message ||
-                      error.toString();
-                }
-            );
-      },150)
+        UserService.getTicket('http://localhost:8080/api/ticketGet',{login:username}).then(
+          response => {
+            this.tickets = response.data;
+          },
+          error => {
+            this.content =
+                (error.response && error.response.data && error.response.data.message) ||
+                error.message ||
+                error.toString();
+          }
+        )
+      },350)
     }
   },
   mounted() {
-    let username = JSON.parse(localStorage.getItem('user'))
-      UserService.getTicket(username.username)
-          .then(
-              response => {
-                this.tickets = response.data;
-              },
-              error => {
-                this.tickets =
-                    (error.response && error.response.data && error.response.data.message) ||
-                    error.message ||
-                    error.toString();
-              }
-          );
+   const username = JSON.parse(localStorage.getItem('user'))
+    //Запрос заявки пользователя по имени
+    UserService.getTicket('http://localhost:8080/api/ticketGet',{login:username.username}).then(
+        response => {
+          this.tickets = response.data;
+        },
+        error => {
+          this.content =
+              (error.response && error.response.data && error.response.data.message) ||
+              error.message ||
+              error.toString();
+        }
+    )
+   //запрос страницы заявок
     UserService.getUserBoard().then(
       response => {
         this.content = response.data;
@@ -125,15 +132,20 @@ export default {
           error.message ||
           error.toString();
       }
-    );
+    )
   }
-};
+}
 </script>
 <style>
 .cards{
   display: inline-block;
   width: 500px;
   float: right;
+}
+.container-ticket{
+  display: flex;
+  flex-wrap: wrap;
+  width: 600px;
 }
 .menu-button{
   font-size: 18px;

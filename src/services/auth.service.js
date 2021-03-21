@@ -2,7 +2,6 @@ import axios from 'axios';
 import {localIp} from '../config/host.config'
 
 const API_URL = localIp + '/api/auth/';
-console.log(localIp)
 
 class AuthService {
   login(user) {
@@ -25,9 +24,18 @@ class AuthService {
 
   register(user) {
     return axios.post(API_URL + 'signup', {
-      username: user.username,
+      firstName: user.firstName,
+      secondName: user.secondName,
+      lastName: user.lastName,
       email: user.email,
-      password: user.password
+      phone: user.phone,
+      brithDay: user.brithDay,
+      street: user.street,
+      house: user.house,
+      flat: user.flat,
+      username: user.username,
+      password: user.password,
+      repeatPassword: user.repeatPassword
     });
   }
 }

@@ -15,6 +15,7 @@
             type="text"
             class="form-control"
             name="username"
+            id="username"
           />
           <div
             v-if="errors.has('username')"
@@ -30,6 +31,7 @@
             type="password"
             class="form-control"
             name="password"
+            id="password"
           />
           <div
             v-if="errors.has('password')"

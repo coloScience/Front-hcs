@@ -3,14 +3,17 @@ import authHeader from './auth-header';
 import {localIp} from '../config/host.config'
 
 const API_URL = localIp + '/api/test/';
-const API_ticket= localIp + '/api/ticket/';
+const API_ticket = localIp + '/api/ticket/';
 
 class UserService {
   getPublicContent() {
     return axios.get(API_URL + 'all');
   }
-  getTicket(login) {
-    return axios.get(API_ticket, { headers: authHeader(login) });
+  getTicket(link, props, data) {
+    return axios.post(link, { headers: authHeader(props), data});
+  }
+  getStatus(link, props, data) {
+    return axios.post(link, { headers: authHeader(props), data});
   }
   getUser() {
     return axios.get(API_ticket, { headers: authHeader() });
@@ -20,7 +23,7 @@ class UserService {
   }
 
   getManagerBoard() {
-    return axios.get(API_URL + 'manage', { headers: authHeader() });
+    return axios.get(API_URL + 'manager', { headers: authHeader() });
   }
 
   getAdminBoard(login) {
