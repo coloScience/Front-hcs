@@ -137,11 +137,6 @@ export default {
 }
 </script>
 <style>
-.cards{
-  display: inline-block;
-  width: 500px;
-  float: right;
-}
 .container-ticket{
   display: flex;
   flex-wrap: wrap;

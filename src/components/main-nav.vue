@@ -11,8 +11,11 @@
       <li v-if="showModeratorBoard" class="nav-item">
         <router-link to="/manager" class="nav-link">Диспетчер</router-link>
       </li>
-      <li class="nav-item">
-        <router-link v-if="currentUser" to="/user" class="nav-link">Заявки</router-link>
+      <li v-if="showWorkBoard" class="nav-item">
+        <router-link to="/worker" class="nav-link">Исполнитель</router-link>
+      </li>
+      <li v-if="currentUser" class="nav-item">
+        <router-link to="/user" class="nav-link">Заявки</router-link>
       </li>
     </div>
 
@@ -51,14 +54,21 @@ export default {
     },
     showAdminBoard() {
       if (this.currentUser && this.currentUser.roles) {
-        return this.currentUser.roles.includes('ROLE_ADMIN');
+        return this.currentUser.roles.includes('admin');
+      }
+
+      return false;
+    },
+    showWorkBoard() {
+      if (this.currentUser && this.currentUser.roles) {
+        return this.currentUser.roles.includes('worker');
       }
 
       return false;
     },
     showModeratorBoard() {
       if (this.currentUser && this.currentUser.roles) {
-        return this.currentUser.roles.includes('ROLE_MANAGER');
+        return this.currentUser.roles.includes('manager');
       }
 
       return false;

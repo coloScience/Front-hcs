@@ -3,7 +3,6 @@ import authHeader from './auth-header';
 import {localIp} from '../config/host.config'
 
 const API_URL = localIp + '/api/test/';
-const API_ticket = localIp + '/api/ticket/';
 
 class UserService {
   getPublicContent() {
@@ -15,8 +14,11 @@ class UserService {
   getStatus(link, props, data) {
     return axios.post(link, { headers: authHeader(props), data});
   }
+  getWorker(link, data, props) {
+    return axios.post(link, { headers: authHeader(props), data});
+  }
   getUser() {
-    return axios.get(API_ticket, { headers: authHeader() });
+    return axios.get(API_URL + 'user', { headers: authHeader() });
   }
   getUserBoard() {
     return axios.get(API_URL + 'user', { headers: authHeader() });

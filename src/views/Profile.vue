@@ -6,10 +6,6 @@
       </h3>
     </header>
     <p>
-      <strong>Token:</strong>
-      {{currentUser.accessToken.substring(0, 20)}} ... {{currentUser.accessToken.substr(currentUser.accessToken.length - 20)}}
-    </p>
-    <p>
       <strong>Id:</strong>
       {{currentUser.id}}
     </p>
@@ -17,10 +13,11 @@
       <strong>Email:</strong>
       {{currentUser.email}}
     </p>
-    <strong>Authorities:</strong>
-    <ul>
-      <li v-for="(role,index) in currentUser.roles" :key="index">{{role}}</li>
-    </ul>
+    <div class="container-roles">
+      <ul class="container-roles__list">
+        <li class="btn-success btn-sm btn mr-2" v-for="(role,index) in currentUser.roles" :key="index">{{role}}</li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -42,3 +39,6 @@ export default {
   }
 };
 </script>
+<style>
+
+</style>
