@@ -31,6 +31,7 @@
 <script>
 import UserService from '../services/user.service';
 import ticket from "@/components/ticket";
+import {localIp} from '../config/host.config'
 
 export default {
   name: 'Ticket',
@@ -71,7 +72,7 @@ export default {
         title: this.title,
         reason: this.reason
       }
-      UserService.getTicket('http://localhost:8080/api/ticket', {login: username}, data).then(
+      UserService.getTicket(`${localIp}/api/ticket`, {login: username}, data).then(
         response=>{
            this.tickets = response.data
         },
@@ -93,7 +94,7 @@ export default {
       this.title = ''
       this.reason = ''
       setTimeout(()=>{
-        UserService.getTicket('http://localhost:8080/api/ticketGet',{login:username}).then(
+        UserService.getTicket(`${localIp}/api/ticketGet`,{login:username}).then(
           response => {
             this.tickets = response.data;
           },
@@ -110,7 +111,7 @@ export default {
   mounted() {
    const username = JSON.parse(localStorage.getItem('user'))
     //Запрос заявки пользователя по имени
-    UserService.getTicket('http://localhost:8080/api/ticketGet',{login:username.username}).then(
+    UserService.getTicket(`${localIp}/api/ticketGet`,{login:username.username}).then(
         response => {
           this.tickets = response.data;
         },

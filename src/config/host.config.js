@@ -1,3 +1,3 @@
 module.exports = {
-    localIp: 'http://localhost:8080'
+    localIp: 'http://77.51.186.158:8082'
 }

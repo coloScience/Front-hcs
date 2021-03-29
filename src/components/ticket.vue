@@ -76,7 +76,7 @@ export default {
     getWorker() {
       this.onWorker = !this.onWorker
       if (this.onWorker = this.onWorker) {
-        UserService.getWorker('http://localhost:8080/api/worker').then(
+        UserService.getWorker(`${localIp}/api/worker`).then(
             response => {
               this.workers = response.data
             },
@@ -94,7 +94,7 @@ export default {
     const username = JSON.parse(localStorage.getItem('user'))
     //Запрос заявки пользователя по имени
     setTimeout(()=>{
-      UserService.getStatus('http://localhost:8080/api/statusGet',{login: username.username}, {id: this.item.id}).then(
+      UserService.getStatus(`${localIp}/api/statusGet`,{login: username.username}, {id: this.item.id}).then(
           response => {
             this.status = response.data
             console.log(this.status[1])

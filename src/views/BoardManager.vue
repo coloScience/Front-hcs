@@ -10,6 +10,7 @@
 <script>
 import UserService from '../services/user.service';
 import Ticket from "@/components/ticket";
+import {localIp} from "@/config/host.config";
 
 export default {
   name: 'manager',
@@ -24,7 +25,7 @@ export default {
   },
   mounted() {
     const username = localStorage.getItem('user')
-    UserService.getTicket('http://localhost:8080/api/ticketGet', {login: username.username}).then(
+    UserService.getTicket(`${localIp}/api/ticketGet`, {login: username.username}).then(
         response => {
           this.tickets = response.data
         },

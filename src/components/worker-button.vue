@@ -1,7 +1,7 @@
 <template>
   <button class="btn btn-sm btn-info w-100" v-on:click="setWorker">
-    {{item.firstName}}
     {{item.secondName}}
+    {{item.firstName}}
     {{item.lastName}}
   </button>
 </template>
@@ -25,7 +25,7 @@ name: "worker-button",
   methods:{
     setWorker() {
       const username = localStorage.getItem('user').username
-      UserService.getWorker('http://localhost:8080/api/workerSet', {userid: this.workers, ticketid: this.tickets}).then(
+      UserService.getWorker(`${localIp}/api/workerSet`, {userid: this.workers, ticketid: this.tickets}).then(
           response => {
             this.workers = response.data
             UserService.getStatus(`${localIp}/api/status`,{username},{id: this.tickets, status: 2}).then(
