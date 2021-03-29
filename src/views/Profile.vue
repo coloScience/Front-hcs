@@ -2,12 +2,16 @@
   <div class="container">
     <header class="jumbotron">
       <h3>
-        <strong>{{currentUser.username}}</strong> Profile
+        <strong>{{currentUser.secondName}} {{currentUser.firstName}} {{currentUser.lastName}}</strong> <span style="float: right">Profile</span>
       </h3>
     </header>
     <p>
       <strong>Id:</strong>
       {{currentUser.id}}
+    </p>
+    <p>
+      <strong>username:</strong>
+      {{currentUser.username}}
     </p>
     <p>
       <strong>Email:</strong>
