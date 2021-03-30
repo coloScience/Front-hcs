@@ -25,7 +25,7 @@ export default {
   },
   mounted() {
     const username = localStorage.getItem('user')
-    UserService.getTicket(`${localIp}/api/ticketGet`, {login: username.username}).then(
+    UserService.getTicket(`${localIp}/api/ticketGet`, 'http://colo-science.ru/manager').then(
         response => {
           this.tickets = response.data
         },
@@ -51,3 +51,13 @@ export default {
   }
 }
 </script>
+<style>
+@media screen and (max-width: 450px){
+  .container{
+    padding: 0;
+  }
+  .jumbotron{
+    padding: 0;
+  }
+}
+</style>

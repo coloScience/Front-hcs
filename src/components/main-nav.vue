@@ -1,6 +1,6 @@
 <template>
-  <div class="navbar navbar-expand navbar-dark bg-dark">
-    <div class="navbar-nav mr-auto">
+  <div class="navig navbar navbar-expand navbar-dark bg-dark">
+    <div class="mob navbar-nav mr-auto">
       <li v-if="false" class="nav-item">
         <router-link to="/home" class="nav-link">Home
         </router-link>
@@ -31,7 +31,7 @@
       </li>
     </div>
 
-    <div v-if="currentUser" class="navbar-nav ml-auto">
+    <div v-if="currentUser" class="w200 navbar-nav ml-auto">
       <li class="nav-item">
         <router-link to="/profile" class="nav-link">
           {{ currentUser.username }}
@@ -83,5 +83,20 @@ export default {
 }
 </script>
 <style scoped>
-
+@media screen and (max-width: 450px){
+  .w200 {
+    margin: 0;
+    position: absolute;
+    right: 1px;
+    display: block;
+  }
+  .navig {
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+  .mob{
+    flex-wrap: wrap;
+    position: relative;
+  }
+}
 </style>

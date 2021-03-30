@@ -1,7 +1,7 @@
 <template>
   <div class="cards">
     <div class="mb-5">
-      <ul style="min-width: 500px; margin-right: 10px" class="list-group" v-cloak>
+      <ul class="list-group" v-cloak>
         <li style="background-color: #6FABE2;" class="list-group-item text-white text-sm-center"><h4>{{item.title}}</h4></li>
         <li class="list-group-item"><strong>Описание: </strong>{{item.reason}}</li>
         <li class="list-group-item"><strong>ФИО: </strong>{{item.secondName}} {{item.firstName}} {{item.lastName}}</li>
@@ -107,5 +107,10 @@ export default {
 </script>
 
 <style scoped>
-
+@media screen and (max-width: 450px){
+  .cards{
+    width: 350px;
+    margin: auto;
+  }
+}
 </style>

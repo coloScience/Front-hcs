@@ -138,6 +138,9 @@ export default {
 }
 </script>
 <style>
+.cards{
+  min-width: 500px;
+}
 .container-ticket{
   display: flex;
   flex-wrap: wrap;
@@ -185,5 +188,35 @@ export default {
   outline: none;
   margin-top: 10px;
   margin-left: 10px;
+}
+
+@media screen and (max-width: 450px){
+  .col-6{
+    max-width: 100%;
+    flex: 0 0 100%;
+    padding: 0;
+  }
+  .cards{
+    min-width: 100px;
+  }
+  .container{
+    padding: 0;
+  }
+  .jumbotron{
+    padding: 0;
+  }
+  .textareas{
+    width: 100%;
+    margin-left: 0;
+  }
+  .inputs{
+    width: 100%;
+    margin-left: 0;
+  }
+  .menu-button{
+    width: 100%;
+    margin-left: 0;
+  }
+
 }
 </style>
